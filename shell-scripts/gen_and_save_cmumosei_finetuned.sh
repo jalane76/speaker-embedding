@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 python /workspace/generate_and_save_embeddings.py \
     /data/cmumosei/Raw/Audio/Full/WAV_16000 \

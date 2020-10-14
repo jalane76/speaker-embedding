@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 python /workspace/plot-embeddings.py \
     /data/speaker-embeddings/cmumosei/finetuned/embeddings.npy \

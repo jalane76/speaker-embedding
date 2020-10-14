@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 python /workspace/generate_and_save_embeddings.py \
     /data/cmumosi/Raw/Audio/WAV_16000/Segmented/ \
