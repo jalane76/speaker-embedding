@@ -1,2 +1,3 @@
 git
 libsndfile1
+ffmpeg
