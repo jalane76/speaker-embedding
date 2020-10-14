@@ -1,8 +1,8 @@
 #/bin/bash
 
-python plot-embeddings.py \
+python /workspace/plot-embeddings.py \
     /data/speaker-embeddings/cmumosi/finetuned/embeddings.npy \
-    images/ \
+    /workspace/images/ \
     "CMU-MOSI Finetuned-ID" \
     --split_token="_" \
     --annotation="id" \
