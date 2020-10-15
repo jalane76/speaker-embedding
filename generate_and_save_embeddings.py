@@ -5,9 +5,9 @@ from pathlib import Path
 from speakerembeddings import SpeakerEmbeddings
 
 @click.command()
-@click.argument('data_path')
-@click.argument('output_path')
-@click.argument('model_path')
+@click.argument('data_path', type=click.Path(exists=True))
+@click.argument('output_path', type=click.Path())
+@click.argument('model_path', type=click.Path(exists=True))
 @click.option('--model_step', help='Ratio of audio chunk duration used as step between two consecutive audio chunks.')
 def generate_and_save(data_path, output_path, model_path, model_step):
 

@@ -1,0 +1,21 @@
+Databases:
+   CMUMOSEI: /data/cmumosei/Raw/Audio/Segmented/Combined/WAV_16000/{uri}.wav
+   MUSAN: /data/musan/noise/free-sound/{uri}.wav
+
+Protocols:
+   CMUMOSEI:
+      SpeakerDiarization:
+         CMUMOSEI:
+           train:
+              uri: ./train.lst
+              annotation: ./train.rttm
+           development:
+              uri: ./development.lst
+              annotation: ./development.rttm
+           test:
+              uri: ./test.lst
+              annotation: ./test.rttm
+   MUSAN:
+      Collection:
+         BackgroundNoise:
+            uri: /data/musan/noise/free-sound/ANNOTATIONS

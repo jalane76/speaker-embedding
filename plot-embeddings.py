@@ -8,8 +8,8 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
 @click.command()
-@click.argument('embeddings_file_path')
-@click.argument('output_path')
+@click.argument('embeddings_file_path', type=click.Path(exists=True))
+@click.argument('output_path', type=click.Path())
 @click.argument('title')
 @click.option('--seed', default=12345, help='Seed for random number generation')
 @click.option('--split_token', default='', help='Token to split identifiers')  # TODO: more elegant solution (regular expressions?)
