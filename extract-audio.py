@@ -5,8 +5,8 @@ import subprocess
 from tqdm import tqdm
 
 @click.command()
-@click.argument('input_path')
-@click.argument('output_path')
+@click.argument('input_path', type=click.Path(exists=True))
+@click.argument('output_path', type=click.Path())
 def extract(input_path, output_path):
     Path(output_path).mkdir(parents=True, exist_ok=True)
     in_files = os.listdir(input_path)
