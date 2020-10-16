@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import click
-from datetime import date
+from datetime import date, datetime
+import logging
 import os
 from pathlib import Path
 import shutil
@@ -44,13 +45,23 @@ def copy_files(source_path, dest_path):
 @click.option('--epochs', default=10, help='Number of epochs to train')
 def train(train_db_path, output_path, protocol, model_path, epochs):
 
+    # Make sure output path exists
     Path(output_path).mkdir(parents=True, exist_ok=True)
 
+    # Create unique experiment path
     experiment_path = get_experiment_path(train_db_path, output_path)
     Path(experiment_path).mkdir(parents=True, exist_ok=True)
 
+    # Set up logging
+    logging.basicConfig(
+        filename=os.path.join(experiment_path, 'train.log'),
+        level=logging.DEBUG,
+        format='%(asctime)s [%(levelname)s]:%(message)s'
+    )
+
     # Copy all of the config and training files to the experiment directory
     copy_files(train_db_path, experiment_path)
+    logging.info(f'Copied training files from {train_db_path} to {experiment_path}')
 
     # Build up the command line for the subprocess
     commands = ['pyannote-audio', 'emb', 'train', '--gpu']
@@ -63,11 +74,21 @@ def train(train_db_path, output_path, protocol, model_path, epochs):
         commands.extend(['--pretrain', new_model_path])
     commands.extend([f'--to={epochs}', experiment_path, protocol])
 
+    logging.info(f'Training command line: {" ".join(commands)}')
+
     cwd = os.getcwd()
     os.chdir(experiment_path)
+    logging.info(f'Changed working directory {cwd} --> {experiment_path}')
 
+    start_time = datetime.now()
     subprocess.run(commands)
+    end_time = datetime.now()
+
+    wall_time = end_time - start_time
+    logging.info(f'Training took {wall_time}')
+
     os.chdir(cwd)
+    logging.info(f'Changed working directory {experiment_path} --> {cwd}')
 
 if __name__ == '__main__':
     train()

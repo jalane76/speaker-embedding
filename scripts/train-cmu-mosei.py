@@ -2,7 +2,6 @@
 
 import subprocess
 
-# NOTE: The pyannote training script excepts the config.yml file to be in the root of the model path
 def train():
 
     script = '/workspace/train-model.py'
