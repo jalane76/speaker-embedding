@@ -8,7 +8,7 @@ def train():
     training_db_path = '/workspace/cmumosei-training-database'
     output_path = '/data/speaker-embeddings/training/'
     protocol = 'CMUMOSEI.SpeakerDiarization.CMUMOSEI'
-    model_path = '/data/speaker-embeddings/models/voxceleb-pretrained/0560.pt'
+    #model_path = '/data/speaker-embeddings/models/voxceleb-pretrained/0560.pt'
 
     commands = [
         script,
