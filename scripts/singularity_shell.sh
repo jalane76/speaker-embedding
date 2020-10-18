@@ -1,5 +1,6 @@
 #!/bin/bash
 
+module load singularity
 singularity shell --nv \
     --bind /home/jalane/git/speaker-embedding:/workspace \
     --bind /data/Jesse:/data \

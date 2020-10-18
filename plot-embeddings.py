@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import click
 from matplotlib import pyplot as plt
 import numpy as np
@@ -8,7 +10,7 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
 @click.command()
-@click.argument('embeddings_file_path', type=click.Path(exists=True))
+@click.argument('embeddings_file_path', type=click.File('rb'))
 @click.argument('output_path', type=click.Path())
 @click.argument('title')
 @click.option('--seed', default=12345, help='Seed for random number generation')
@@ -28,7 +30,7 @@ def plot(embeddings_file_path, output_path, title, seed, split_token, annotation
 
     # Remove segmented file indices and get unique ids
     if split_token != '':
-        ids = [id.split(split_token)[0] for id in ids]
+        ids = [id[:id.rfind(split_token)] for id in ids]
     _, unique_ids = np.unique(ids, return_inverse=True)
     
     # Get t-SNE embeddings
