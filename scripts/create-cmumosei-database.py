@@ -7,7 +7,13 @@ def create():
     data_path = '/data/cmumosei/Raw/Audio/Segmented/Combined/WAV_16000/'
     output_path = '/workspace/cmumosei-training-database/'
 
-    subprocess.run([script, data_path, output_path])
+    commands = [
+        script,
+        data_path,
+        output_path
+    ]
+
+    subprocess.run(commands)
 
 if __name__ == '__main__':
     create()
