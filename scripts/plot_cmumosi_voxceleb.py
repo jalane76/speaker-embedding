@@ -6,10 +6,12 @@ def plot():
     script = '/workspace/plot-embeddings.py'
     data_path = '/data/speaker-embeddings/cmumosi/voxceleb/embeddings.npy'
     output_path = '/workspace/images/'
-    title = 'CMU-MOSI VoxCeleb'
+    title = 'CMU-MOSI VoxCeleb - Images'
     split_token = '_'
-    annotation = 'none'
+    annotation = 'image'
     num_annotations = '20'
+    images_path = '/data/cmumosi/Raw/Image/Segmented'
+    zoom = '0.2'
     
     commands = [
         script,
@@ -18,7 +20,9 @@ def plot():
         title,
         '--split_token', split_token,
         '--annotation', annotation,
-        '--num_annotations', num_annotations
+        '--num_annotations', num_annotations,
+        '--images_path', images_path,
+        '--zoom', zoom
     ]
 
     subprocess.run(commands)
