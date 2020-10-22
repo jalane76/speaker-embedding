@@ -3,14 +3,10 @@
 import click
 from datetime import datetime
 import logging
-import multiprocessing
 import os
 from pathlib import Path
 import subprocess
 from tqdm import tqdm
-
-def worker(command):
-    subprocess.run(command, capture_output=False, shell=False, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 @click.command()
 @click.argument('input_path', type=click.Path(exists=True))
@@ -37,8 +33,7 @@ def extract(input_path, output_path, width, height, scale):
     image_size = (int(scale * width), int(scale * height))
     logging.info(f'Output image size: {image_size}')
 
-    commands = []
-    for in_file in in_files:
+    for in_file in tqdm(in_files):
         in_path = os.path.join(input_path, in_file)
         logging.debug(f'In path {in_path}')
 
@@ -55,15 +50,16 @@ def extract(input_path, output_path, width, height, scale):
             os.path.join(out_path, 'img%06d.png')
         ]
         logging.debug(f'ffmpeg command: {" ".join(ffmpeg_command)}')
-        commands.append(ffmpeg_command)
-
-    cpu_count = multiprocessing.cpu_count()
-    logging.info(f'Processing with {cpu_count} workers...')
-    with multiprocessing.Pool(processes=cpu_count) as pool:
-        results = list(tqdm(pool.imap(worker, commands), total=len(in_files)))
+        subprocess.run(
+            ffmpeg_command,
+            capture_output=False,
+            shell=False,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
     
     end_time = datetime.now()
-
     logging.info(f'Image extraction took: {end_time - start_time}')
         
 
