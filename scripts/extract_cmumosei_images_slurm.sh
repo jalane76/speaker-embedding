@@ -21,4 +21,4 @@ singularity exec --nv \
     /data/Jesse/singularity-images/speaker-embeddings_latest.sif \
     /workspace/extract-images.py \
     /data/cmumosei/Raw/Videos/Segmented/Combined/ \
-    /data/cmumosei/Raw/Image/Segmented/Combined/
+    /data/cmumosei/Raw/Images/Segmented/Combined/
